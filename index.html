@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>My LIFF App</title>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  </head>
+  <body>
+    <h1>My LIFF App</h1>
+    <button onclick="login()">Login</button>
+    <button onclick="getProfile()">Get Profile</button>
+    <div id="profile"></div>
+
+    <script>
+      // 初始化 LIFF
+      async function main() {
+        await liff.init({ liffId: "你從 LINE Developers 拿到的 LIFF ID" });
+        if (!liff.isLoggedIn()) {
+          liff.login();
+        }
+      }
+
+      function login() {
+        if (!liff.isLoggedIn()) {
+          liff.login();
+        }
+      }
+
+      async function getProfile() {
+        const profile = await liff.getProfile();
+        document.getElementById("profile").innerHTML = `
+        <p>Name: ${profile.displayName}</p>
+        <img src="${profile.pictureUrl}" width="100"/>
+      `;
+      }
+
+      main();
+    </script>
+  </body>
+</html>
